@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
-
+  skip_before_action :authenticate_user!, only: [:new, :create]
   # GET /profiles
   # GET /profiles.json
   def index
@@ -25,7 +25,8 @@ class ProfilesController < ApplicationController
   # POST /profiles.json
   def create
     @profile = Profile.new(profile_params)
-    @profile.user = current_user 
+    @user = User.create(email: @profile.email, password: Devise.friendly_token.first(8))
+    @profile.user = @user 
 
     respond_to do |format|
       if @profile.save
@@ -70,6 +71,6 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:first_name, :last_name, :school, :year, :gender, :user_id)
+      params.require(:profile).permit(:first_name, :last_name, :school, :year, :gender, :user_id, :email)
     end
 end

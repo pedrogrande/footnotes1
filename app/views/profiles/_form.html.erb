@@ -1,45 +1,20 @@
-<%= form_for(profile) do |f| %>
-  <% if profile.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(profile.errors.count, "error") %> prohibited this profile from being saved:</h2>
-
-      <ul>
-      <% profile.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-
-  <div class="field">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :school %>
-    <%= f.text_field :school %>
-  </div>
-
-  <div class="field">
-    <%= f.label :year %>
-    <%= f.number_field :year, collection: ['Year 7', 'Year 8', 'Year 9', 'Year 10', 'Year 11', 'Year 12'] %>
-  </div>
-
-  <div class="field">
-    <%= f.label :gender %>
-    <%= f.text_field :gender, collection: ['Female', 'Male'] %>
-  </div>
-
-
-
+<%= simple_nested_form_for(profile) do |f| %>
+  <%= f.error_notification %>
+  
+      
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.input :first_name, autofocus: true %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :last_name %>
+        </div>
+      </div>
+      <%= f.input :email %>
+      <%= f.input :year, label: 'Age', collection: ['18-21', '22-26', '27-35', '35+', 'Year 7', 'Year 8', 'Year 9', 'Year 10', 'Year 11', 'Year 12'], include_blank: false %>
+      <%= f.input :gender, collection: ['Female', 'Male', 'Non-binary / Third gender', 'Prefer not to say'], include_blank: false %>
+  
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Start the quiz', class: 'btn btn-success' %>
   </div>
 <% end %>

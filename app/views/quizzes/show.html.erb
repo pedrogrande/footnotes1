@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @quiz.name %>
+</p>
+
+<p>
+  <strong>Year group:</strong>
+  <%= @quiz.year_group %>
+</p>
+
+<%= link_to 'Edit', edit_quiz_path(@quiz) %> |
+<%= link_to 'Back', quizzes_path %>
+
+
+<h3>Questions</h3>
+<ol>
+<% @quiz.questions.each do |question| %>
+	<li>
+		<%= link_to question.question, question %>
+		<ol>
+			<% question.answers.each do |answer| %>
+				<li><%= answer.answer %></li>
+			<% end %>
+		</ol>
+	</li>
+<% end %>
+</ol>
+
+<%= link_to 'Add Question', new_question_path, class: 'btn btn-default' %>

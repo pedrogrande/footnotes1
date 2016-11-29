@@ -2,10 +2,8 @@
 
 one:
   name: MyString
-  description: MyString
-  user: one
+  year_group: MyString
 
 two:
   name: MyString
-  description: MyString
-  user: two
+  year_group: MyString

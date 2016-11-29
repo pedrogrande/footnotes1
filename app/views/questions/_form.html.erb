@@ -1,0 +1,27 @@
+<%= simple_nested_form_for @question do |f| %>
+  <%= f.error_notification %>
+
+  <% if params[:quiz] %>
+    	<p><strong>For: <%= @quiz.name %></strong></p>
+    	<%= f.input :quiz_ids, as: :hidden, input_html: { value: '[' + @quiz.id.to_s + ']' } %>
+    <% else %>
+    	<%= f.association :quizzes, as: :check_boxes %>
+    <% end %>
+  <div class="form-inputs">
+  	<%= f.association :question_type %>
+    <%= f.input :question %>
+
+  </div>
+
+  <%= f.fields_for :answers do |answer| %>
+  <%= answer.input :answer %>
+  <%= answer.input :code %>
+  <%= answer.input :image %>
+  <%= answer.link_to_remove "Remove this answer" %>
+<% end %>
+<p><%= f.link_to_add "Add an answer", :answers %></p>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

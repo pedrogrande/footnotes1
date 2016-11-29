@@ -1,17 +1,23 @@
 <h2>Sign up</h2>
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= simple_nested_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
   <form class="form-horizontal">
   <div class="form-group">
     <%= f.input :email, required: true, autofocus: true %>
+    
+    <%= f.fields_for :profile do |p| %>
+      <%= p.input :first_name %>
+      <%= p.input :last_name %>
+      <%= p.input :year %>
+      <%= p.input :gender %>
+    <% end %>
    </div>
   </div>
   <div class="form-group">
-    <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
-     
-    <%= f.input :password_confirmation, required: true %>
+    <%= f.input :password, required: true, as: :hidden, input_html: { value: Devise.friendly_token.first(8) } %>
+    
    
   </div>
 

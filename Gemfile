@@ -20,6 +20,9 @@ gem 'simple_form'
 gem "cancancan"
 gem "rolify"
 gem 'friendly_id'
+gem "nested_form"
+gem "carrierwave"
+gem 'cloudinary'
 
 
 
